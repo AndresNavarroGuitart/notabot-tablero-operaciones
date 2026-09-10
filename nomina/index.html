@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nómina de empleados — Not a Bot Agency</title>
+  <meta name="description" content="Alta y ficha de empleados de Not a Bot Agency. Perfil inicial con los datos personales de cada persona." />
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Alegreya+Sans:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/theme.css?v=1.2.1" />
+  <link rel="stylesheet" href="nomina.css?v=1.2.1" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="../index.html">
+        <img src="../assets/logo.svg" alt="Not a Bot Agency" height="40" />
+        <span class="brand__back">‹ Tablero</span>
+      </a>
+      <div class="topbar__actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambiar tema">
+          <span aria-hidden="true">◐</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="app"></main>
+
+  <footer class="foot">
+    <div class="foot__inner">
+      <img src="../assets/logo.svg" alt="" height="34" />
+      <p>Not a Bot Agency · Los datos se guardan en este navegador (localStorage).</p>
+    </div>
+  </footer>
+
+  <template id="tpl-lista">
+    <section class="page-head page-head--row">
+      <div>
+        <p class="eyebrow">RRHH &amp; Nómina</p>
+        <h1>Nómina de empleados</h1>
+      </div>
+      <a class="btn" href="#/nuevo">+ Nuevo colaborador</a>
+    </section>
+
+    <div class="lista-toolbar">
+      <div class="search">
+        <span class="search__icon" aria-hidden="true">⌕</span>
+        <input type="search" id="buscar" placeholder="Buscar por nombre, cliente, rol o estado…" aria-label="Buscar colaborador" />
+      </div>
+      <span class="lista-count" id="listaCount"></span>
+    </div>
+
+    <div class="tabla-wrap" id="tablaWrap">
+      <table class="planilla">
+        <thead>
+          <tr>
+            <th scope="col">Colaborador</th>
+            <th scope="col">Estado</th>
+            <th scope="col" class="col-cliente">Cliente / Proyecto</th>
+            <th scope="col" class="col-rol">Rol</th>
+            <th scope="col" class="col-pais">País</th>
+            <th scope="col" class="col-dedic">Dedicación</th>
+            <th scope="col" class="col-inicio">Inicio</th>
+            <th scope="col" class="col-seg">Seguimiento</th>
+            <th scope="col"><span class="sr-only">Abrir</span></th>
+          </tr>
+        </thead>
+        <tbody id="empleados"></tbody>
+      </table>
+    </div>
+
+    <div class="vacio" id="vacio" hidden>
+      <p class="vacio__title">Todavía no hay colaboradores cargados</p>
+      <p class="vacio__hint">Empezá creando la ficha de la primera persona: identidad, datos personales y asignación.</p>
+      <div class="vacio__acciones">
+        <a class="btn" href="#/nuevo">+ Cargar primer colaborador</a>
+        <button type="button" class="btn btn--ghost" id="cargarDemo">Cargar 10 de ejemplo</button>
+      </div>
+    </div>
+  </template>
+
+  <script src="empleados-demo.js?v=1.2.1"></script>
+  <script src="nomina.js?v=1.2.1"></script>
+</body>
+</html>

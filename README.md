@@ -1,0 +1,161 @@
+# Tablero de Operaciones — Not a Bot Agency
+
+Panel de control de la operación de la agencia: empleados, proyectos y pipeline
+de clientes, más el estado de cada proceso de gestión.
+
+**Publicado:** <https://andresnavarroguitart.github.io/notabot-tablero-operaciones/>
+· **Versiones:** ver [`CHANGELOG.md`](CHANGELOG.md) y los
+[releases](https://github.com/AndresNavarroGuitart/notabot-tablero-operaciones/releases).
+
+> Antes vivía dentro del repo `quickconsultant-web`; desde `v1.2.1` tiene repo propio.
+> Reglas y ritual de publicación para trabajar con un agente: ver [`GEMINI.md`](GEMINI.md).
+
+Front estático (HTML + CSS + JS, sin build) con la identidad visual de
+[notabotagency.es](https://notabotagency.es): tipografías **DM Serif Display** /
+**Alegreya Sans**, verde `#03524E`/`#20574E` y acentos magenta `#CC3366` y
+terracota `#C84E1E`. Soporta tema claro/oscuro.
+
+## Estructura
+
+| Archivo | Rol |
+|---|---|
+| `index.html` | Tablero: estructura de la página |
+| `styles.css` | Estilos propios del tablero |
+| `app.js` | Render de KPIs, grilla, filtros y panel de detalle |
+| `data.js` | **Fuente de datos** del tablero (hoy datos de ejemplo) |
+| `assets/theme.css` | Tokens de marca + shell (topbar, botones, footer) compartido por todas las vistas |
+| `assets/logo.svg` | Logo Not a Bot Agency (vectorial) |
+| `nomina/` | **Módulo Nómina de empleados** (ver abajo) |
+| `pipeline/` | **Módulo Pipeline de Clientes** (ver abajo) |
+| `proyectos/` | **Módulo Proyectos** — espejo del tablero de Notion (ver abajo) |
+
+## Módulo: Nómina de empleados (`nomina/`)
+
+Listado de colaboradores (planilla) + ficha en **formato panel** de una sola página.
+
+**Listado** — columnas: Colaborador · Estado (Activo / Inactivo / Próximo Ingreso /
+Std By) · Cliente / Proyecto · Rol · País · Dedicación · Inicio · Seguimiento
+(derivado). Buscador por nombre, cliente, rol, estado.
+
+**Ficha** (`#/empleado/:id`) — panel con encabezado (avatar, estado, `rol · cliente /
+proyecto`, botón Editar), barra resumen (dedicación · país · ingreso · seguimiento) y
+tarjetas: **Datos personales**, **Asignación operativa**, **PTO** (días disponibles
+calculados + movimientos), **Equipamiento** (+ historial), **Seguimiento de la
+persona**, **Estado de la relación** (semáforo Todo en orden / Requiere atención /
+Riesgo de continuidad). **Documentos** y **Administración** son pestañas.
+
+**Edición** (`#/empleado/:id/editar`) separada de la vista; alta en `#/nuevo`.
+
+Persistencia en `localStorage` (clave `nba-nomina-empleados`), sin backend. Router por
+hash: `#/` · `#/nuevo` · `#/empleado/:id` · `#/empleado/:id/{doc,adm,editar}`.
+
+La primera vez se cargan **10 colaboradores de ejemplo** (`empleados-demo.js`, datos
+ficticios). Desde el estado vacío hay un botón para recargarlos. Al conectar datos
+reales, borrar `empleados-demo.js` y su `<script>` en `index.html`.
+
+| Archivo | Rol |
+|---|---|
+| `nomina/index.html` | Estructura + plantilla del listado (`tpl-lista`) |
+| `nomina/nomina.css` | Estilos del listado y del panel |
+| `nomina/nomina.js` | Router, vistas (listado / ficha / edición), CRUD sobre localStorage |
+| `nomina/empleados-demo.js` | Dataset de ejemplo (10 colaboradores) |
+
+## Módulo: Pipeline de Clientes (`pipeline/`)
+
+Seguimiento de leads. Dos vistas del mismo dato:
+
+- **Kanban** — columnas por etapa (Nuevo · Contactado · Calificado · Propuesta
+  enviada · Negociación · Ganado · Perdido). Se arrastra la tarjeta entre columnas
+  para avanzar la etapa.
+- **Lista** — planilla ordenada por próxima acción, con las vencidas resaltadas.
+
+**Filtros** (barra sobre las dos vistas): búsqueda por nombre/empresa/mail, y
+selects por etapa, origen, servicio y responsable, más un toggle "solo vencidos".
+Botón "Limpiar" cuando hay algún filtro activo.
+
+**Ficha del lead** (drawer): datos editables (contacto, empresa, mail, teléfono,
+origen, servicio, responsable) · **Seguimiento** (próxima acción + fecha) ·
+**Actividad** (historial con fecha y tipo + alta). Alta de lead nuevo y baja desde
+la misma ficha. La probabilidad se deriva de la etapa (informativa, no editable).
+
+KPIs calculados: leads activos, seguimientos vencidos, leads sin próxima acción,
+tasa de conversión.
+
+Persistencia en `localStorage` (`nba-pipeline-leads`), sin backend. 14 leads de
+ejemplo en `leads-demo.js` (se siembran al abrir). Al conectar el CRM/Notion,
+borrar `leads-demo.js` y su `<script>` en `index.html`.
+
+| Archivo | Rol |
+|---|---|
+| `pipeline/index.html` | Estructura (KPIs, toolbar, board, lista, drawer) |
+| `pipeline/pipeline.css` | Estilos del Kanban, la lista y la ficha |
+| `pipeline/pipeline.js` | Estado, drag & drop, KPIs, ficha y alta |
+| `pipeline/leads-demo.js` | Dataset de ejemplo (14 leads) |
+
+## Módulo: Proyectos (`proyectos/`)
+
+**Espejo de solo lectura** del tablero de Notion "Status de temas · Equipo NOT A
+BOT". Kanban por **Estado** (Sin Iniciar · En curso · Std By · Finalizado) + vista
+Lista, con filtros por cliente, etapa y líder, y búsqueda. Cada proyecto abre una
+ficha con sus datos y un botón **Abrir en Notion**. No se edita desde acá: los
+cambios se hacen en Notion.
+
+Los datos están en `proyectos-data.js`. Hoy es un **snapshot**; para el sync
+automático (GitHub Actions, sin servidor) seguir [`SYNC.md`](proyectos/SYNC.md).
+El KPI "Proyectos activos" del tablero principal cuenta los "En curso" de este
+módulo.
+
+| Archivo | Rol |
+|---|---|
+| `proyectos/index.html` | Estructura (banner de sync, KPIs, toolbar, board, lista, drawer) |
+| `proyectos/proyectos.css` | Estilos del Kanban, la lista y la ficha |
+| `proyectos/proyectos.js` | Render, filtros y ficha (solo lectura) |
+| `proyectos/proyectos-data.js` | Datos (snapshot de Notion o generado por el sync) |
+| `proyectos/sync-proyectos.mjs` | Script que baja el tablero de Notion y regenera el `.js` |
+| `proyectos/SYNC.md` | Cómo activar el sync automático (workflow de GitHub Actions) |
+
+> El workflow de sync **no** está incluido en este repo: mientras el repo sea
+> público, no debe correr (publicaría datos de Notion). Ver `proyectos/SYNC.md`.
+
+## Cómo agregar o editar un proceso
+
+Editar el array `procesos` en [`data.js`](data.js). Cada entrada:
+
+```js
+{
+  id: "slug-unico",
+  nombre: "Nombre visible",
+  categoria: "comercial",       // clave de TABLERO.categorias
+  estado: "operativo",          // operativo | atencion | detenido
+  descripcion: "Qué hace el proceso.",
+  frecuencia: "Diaria · 07:00",
+  ultimaEjecucion: "2026-08-28T07:03:00-03:00",
+  duracionMedia: "≈ 3 min",
+  exito7d: 98,                  // %
+  ejecuciones7d: 7,
+  responsable: "Nombre",
+  enlace: "../alguna-app/",     // o null
+  corridas: [
+    { fecha: "2026-08-28T07:03:00-03:00", estado: "ok", detalle: "..." }
+    // estado: ok | aviso | error
+  ]
+}
+```
+
+Los KPIs de arriba se recalculan solos a partir de esa lista.
+
+## Conectar a datos reales
+
+Reemplazar el contenido de `data.js` por una llamada al backend antes de que
+corra `app.js`, manteniendo la misma forma de objeto en `window.TABLERO`.
+
+## Desarrollo local
+
+Servir la carpeta con cualquier servidor estático. Desde la raíz del repo:
+
+```bash
+powershell -NoProfile -ExecutionPolicy Bypass -File serve.ps1
+```
+
+y abrir `http://localhost:3005/index.html`
+(el módulo Nómina queda en `http://localhost:3005/nomina/index.html`).
