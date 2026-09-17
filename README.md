@@ -53,6 +53,11 @@ La primera vez se cargan **10 colaboradores de ejemplo** (`empleados-demo.js`, d
 ficticios). Desde el estado vacío hay un botón para recargarlos. Al conectar datos
 reales, borrar `empleados-demo.js` y su `<script>` en `index.html`.
 
+> Hay un Google Form/Sheet de RRHH que podría alimentar esto automáticamente, pero
+> **no está conectado a propósito**: el sitio es público y sin login, y la Nómina
+> guarda datos personales y bancarios reales. Plan y requisitos para habilitarlo
+> más adelante: [`nomina/EMPLEADOS-SYNC.md`](nomina/EMPLEADOS-SYNC.md).
+
 | Archivo | Rol |
 |---|---|
 | `nomina/index.html` | Estructura + plantilla del listado (`tpl-lista`) |

@@ -23,6 +23,8 @@ URL pública: https://andresnavarroguitart.github.io/notabot-tablero-operaciones
   (nombres, clientes, proyectos, mails, cuentas bancarias) deben ser FICTICIOS.
 - Todo lo que se inyecta con `innerHTML` debe pasar por el helper `esc()`.
 - No activar el sync automático de Notion mientras el repo sea público (ver `proyectos/SYNC.md`).
+- No conectar el Form/Sheet de RRHH a la Nómina mientras el sitio sea público y sin login
+  (ver `nomina/EMPLEADOS-SYNC.md` — plan y requisitos para cuando haya destino privado).
 
 ## Ritual de publicación (SIEMPRE en este orden)
 1. Verificar el cambio en el navegador (server local, ver abajo).
