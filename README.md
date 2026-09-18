@@ -9,6 +9,10 @@ de clientes, más el estado de cada proceso de gestión.
 
 > Antes vivía dentro del repo `quickconsultant-web`; desde `v1.2.1` tiene repo propio.
 > Reglas y ritual de publicación para trabajar con un agente: ver [`GEMINI.md`](GEMINI.md).
+> Hoy es un sitio estático con datos ficticios (sin login, sin backend, a propósito —
+> ver [`nomina/EMPLEADOS-SYNC.md`](nomina/EMPLEADOS-SYNC.md)). Plan para pasarlo a
+> producción con datos reales (login, base de datos, roles, cifrado, logging):
+> ver [`PLAN-PRODUCCION.md`](PLAN-PRODUCCION.md).
 
 Front estático (HTML + CSS + JS, sin build) con la identidad visual de
 [notabotagency.es](https://notabotagency.es): tipografías **DM Serif Display** /
