@@ -8,6 +8,26 @@ Versionado: `vMAJOR.MINOR.PATCH` (tags de git + releases en GitHub).
 > el proyecto vive en su propio repo y los tags pasan a ser `v*`. El historial
 > anterior a `v1.2.1` está en los releases del repo original.
 
+## [v1.3.0] — 2026-09-29
+
+### Agregado
+
+- **Formulario de alta de colaborador** (`alta-colaborador/`) — página independiente
+  del Tablero de Operaciones (sin navegación hacia/desde él, no listada como proceso),
+  con la misma identidad visual. Campos según spec del cliente: datos personales,
+  contacto, wallet USDC y documentación (DNI frente/dorso, pasaporte, CV en PDF).
+  Popup de consentimiento de tratamiento de datos personales al completar los campos
+  obligatorios.
+  - No usa `localStorage` ni el repo como destino de datos: los campos de texto se
+    envían a un Google Form/Sheet privado de Not a Bot; los archivos se suben aparte
+    en un Google Form nativo (los adjuntos de Google Forms requieren login con Google).
+  - **Sin conectar todavía**: falta la URL real del Google Form y el texto legal
+    definitivo de Not a Bot (el texto de origen citaba a una empresa de terceros como
+    responsable del tratamiento — no se publicó). Ver `alta-colaborador/SETUP.md`.
+- `nomina/EMPLEADOS-SYNC.md`: mapeo real de campos del formulario → ficha de Nómina
+  (antes pendiente de completar).
+- `?v=` de JS/CSS: **1.2.1 → 1.3.0**.
+
 ## [v1.2.1] — 2026-09-07
 
 ### Cambiado
@@ -143,6 +163,7 @@ Primera versión estable, publicada en GitHub Pages y compartible con clientes:
   hasta cargar el secret `NOTION_TOKEN` (ver `proyectos/SYNC.md`).
 - `assets/theme.css` compartido por todas las vistas.
 
+[v1.3.0]: https://github.com/AndresNavarroGuitart/notabot-tablero-operaciones/releases/tag/v1.3.0
 [v1.2.1]: https://github.com/AndresNavarroGuitart/notabot-tablero-operaciones/releases/tag/v1.2.1
 [tablero-v1.2.0]: https://github.com/AndresNavarroGuitart/quickconsultant-web/releases/tag/tablero-v1.2.0
 [tablero-v1.1.0]: https://github.com/AndresNavarroGuitart/quickconsultant-web/releases/tag/tablero-v1.1.0

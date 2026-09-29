@@ -32,6 +32,7 @@ terracota `#C84E1E`. Soporta tema claro/oscuro.
 | `nomina/` | **Módulo Nómina de empleados** (ver abajo) |
 | `pipeline/` | **Módulo Pipeline de Clientes** (ver abajo) |
 | `proyectos/` | **Módulo Proyectos** — espejo del tablero de Notion (ver abajo) |
+| `alta-colaborador/` | **Formulario de alta de colaborador** — independiente del tablero (ver abajo) |
 
 ## Módulo: Nómina de empleados (`nomina/`)
 
@@ -125,6 +126,36 @@ módulo.
 
 > El workflow de sync **no** está incluido en este repo: mientras el repo sea
 > público, no debe correr (publicaría datos de Notion). Ver `proyectos/SYNC.md`.
+
+## Formulario: Alta de colaborador (`alta-colaborador/`)
+
+Formulario para que un colaborador/contractor nuevo cargue sus datos (personales,
+contacto, wallet USDC) y documentación (DNI frente/dorso, pasaporte, CV) para el
+contrato y el NDA. **Es una página aparte, no forma parte del Tablero de
+Operaciones** — no tiene navegación hacia el tablero ni viceversa, y no aparece
+listada como proceso en `data.js`. Comparte solo la identidad visual
+(`assets/theme.css`, tipografías, logo).
+
+No usa `localStorage` ni escribe nada en este repo: los campos de texto se
+envían a un Google Form/Sheet privado de Not a Bot, y la documentación se sube
+aparte en un Google Form nativo (los adjuntos de Google Forms exigen login con
+Google, no se pueden recibir desde una página externa). El popup de
+consentimiento de datos personales se muestra recién cuando están completos
+todos los campos obligatorios.
+
+**Estado:** el diseño y la validación están completos, pero **el envío real
+todavía no está conectado** (faltan la URL del Google Form y el texto legal
+definitivo de Not a Bot) — ver [`alta-colaborador/SETUP.md`](alta-colaborador/SETUP.md)
+para dejarlo operativo. El alta automática en el módulo Nómina a partir de las
+respuestas está planificada en [`nomina/EMPLEADOS-SYNC.md`](nomina/EMPLEADOS-SYNC.md),
+no implementada todavía (por ahora RRHH carga el alta a mano desde la Sheet).
+
+| Archivo | Rol |
+|---|---|
+| `alta-colaborador/index.html` | Estructura del formulario + popups de consentimiento y de documentación |
+| `alta-colaborador/alta-colaborador.css` | Estilos propios |
+| `alta-colaborador/alta-colaborador.js` | Validación, popup de consentimiento, envío (config pendiente) |
+| `alta-colaborador/SETUP.md` | Cómo conectarlo a un Google Form real |
 
 ## Cómo agregar o editar un proceso
 

@@ -2,9 +2,10 @@
 
 ## Objetivo
 
-Que cuando un compañero complete el Google Form de alta de empleado (datos
-personales, dirección, contacto de emergencia, datos bancarios, etc.), esa
-información entre directo a la ficha de Nómina del tablero, sin tipearla a mano.
+Que cuando un colaborador nuevo complete el formulario de alta —hoy
+[`alta-colaborador/`](../alta-colaborador/index.html), ver su
+[`SETUP.md`](../alta-colaborador/SETUP.md)— esa información entre directo a la
+ficha de Nómina del tablero, sin tipearla a mano.
 
 ## Por qué está pausado hoy
 
@@ -60,19 +61,34 @@ lee de Notion): un script Node que
    del paso 1 — nunca en un archivo `.js` commiteado a este repo público,
    como se hace hoy con `empleados-demo.js`.
 
-## Mapeo de campos (pendiente de completar con el Form real)
+## Mapeo de campos — `alta-colaborador/` → ficha de Nómina
 
-| Columna del Form | Campo en la ficha de Nómina |
-|---|---|
-| _(pendiente)_ | `nombre` |
-| _(pendiente)_ | `apellido` |
-| _(pendiente)_ | `documento` |
-| _(pendiente)_ | `mail` |
-| _(pendiente)_ | `telefono` |
-| _(pendiente)_ | `direccionCompleta` |
-| _(pendiente)_ | `contactoAltNombre` / `contactoAltVinculo` / `contactoAltTelefono` |
-| _(pendiente)_ | `cliente` / `proyecto` / `rol` / `dedicacion` |
-| _(pendiente)_ | `administracion.banco` / `.cuenta` / `.alias` / `.remuneracion` |
+Ya se conoce el formulario real (spec del cliente, sept. 2026). Mapeo:
+
+| Campo del formulario | Campo en la ficha de Nómina | Nota |
+|---|---|---|
+| `nombre` | `nombre` | — |
+| `apellido` | `apellido` | — |
+| `documento` (DNI) | `documento` | — |
+| `cuit` | `cuit` | — |
+| `pasaporte` | `pasaporte` | — |
+| `nacionalidad` | _(nuevo campo)_ | Nómina no tiene `nacionalidad` hoy — agregar al modelo del empleado |
+| `domicilio` + `codigoPostal` + `ciudad` + `provincia` | `direccionCompleta` | Componer los 4 en un solo string, o extender el modelo si se prefiere guardarlos separados |
+| `pais` | `pais` | — |
+| `profesion` | _(nuevo campo, no confundir con `rol`)_ | `rol` es el puesto en el proyecto; `profesion` es el título/profesión de base |
+| `mail` | `mail` | — |
+| `telefono` | `telefono` | — |
+| `linkedin` | `linkedin` | — |
+| `whatsapp` / `telegram` | _(nuevos campos)_ | Sí/No — agregar al modelo si se quiere conservar |
+| `walletRed` + `walletDireccion` | `administracion.walletRed` / `.walletDireccion` | Extender el objeto `administracion` (hoy solo tiene banco/cuenta/alias/moneda tradicionales) |
+| `docFrenteDni`, `docDorsoDni`, `docPasaporte`, `docCV` | `documentos[]` | Un registro por archivo, mismo shape que ya usa la solapa Documentos (`{ nombre, tipo, fecha, archivo }`) |
+| Aceptación del consentimiento | `documentos[]` | Registrar como un documento más: `{ nombre: "Consentimiento de tratamiento de datos", tipo: "Otro", fecha }` |
+
+No están cubiertos por el formulario (siguen completándose a mano en Nómina):
+`estado`, `cliente`, `proyecto`, `rol`, `dedicacion`, `inicio`, `ptoAcordados`,
+`equipamiento`, `contactoAlt*`, `administracion` (bancaria tradicional),
+`seguimientos`, `relacion` — son datos operativos que define Not a Bot, no el
+colaborador.
 
 ## Mientras tanto
 

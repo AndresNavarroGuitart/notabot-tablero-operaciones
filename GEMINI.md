@@ -16,6 +16,9 @@ URL pública: https://andresnavarroguitart.github.io/notabot-tablero-operaciones
 - `pipeline/`  → kanban + lista de leads. localStorage: `nba-pipeline-leads`
 - `proyectos/` → espejo de solo lectura de Notion. Datos en `proyectos/proyectos-data.js`
 - `index.html` → portada: 5 procesos + 4 KPIs. Lógica en `app.js`, datos en `data.js`
+- `alta-colaborador/` → formulario de onboarding, **INDEPENDIENTE del tablero** (sin nav
+  hacia/desde el resto, no listado en `data.js`). No usa localStorage; el envío es a un
+  Google Form externo (config pendiente — ver `alta-colaborador/SETUP.md`).
 
 ## REGLAS DE SEGURIDAD (un cliente está certificando ISO 27001) — NO NEGOCIABLES
 - El repo es PÚBLICO y GitHub Pages lo sirve sin autenticación.
@@ -28,13 +31,17 @@ URL pública: https://andresnavarroguitart.github.io/notabot-tablero-operaciones
 - Plan completo para pasar a producción (login con Google, Firestore, roles, cifrado,
   logging de accesos): ver `PLAN-PRODUCCION.md`. No implementar nada de eso sin que el
   usuario lo pida explícitamente — hoy el sitio sigue siendo demo público a propósito.
+- `alta-colaborador/`: NO reemplazar `CONFIG.consentText` en `alta-colaborador.js` por
+  ningún texto que no sea el aviso legal real de Not a Bot Agency (razón social, CUIT/NIF
+  y contacto correctos). No completar `CONFIG.formActionUrl`/`entryIds`/`docsFormUrl` con
+  datos inventados — solo con los reales, siguiendo `alta-colaborador/SETUP.md`.
 
 ## Ritual de publicación (SIEMPRE en este orden)
 1. Verificar el cambio en el navegador (server local, ver abajo).
 2. Actualizar `CHANGELOG.md` (estilo Keep a Changelog, en español).
-3. Subir el `?v=X.Y.Z` en TODOS los `<script>`/`<link>` de los 4 index.html
-   (`index.html`, `nomina/index.html`, `pipeline/index.html`, `proyectos/index.html`).
-   NO versionar `proyectos/proyectos-data.js`.
+3. Subir el `?v=X.Y.Z` en TODOS los `<script>`/`<link>` de los 5 index.html
+   (`index.html`, `nomina/index.html`, `pipeline/index.html`, `proyectos/index.html`,
+   `alta-colaborador/index.html`). NO versionar `proyectos/proyectos-data.js`.
 4. `git commit` (mensaje en español).
 5. `git tag -a vX.Y.Z -m "..."`
 6. `git push origin master && git push origin vX.Y.Z`
@@ -42,7 +49,7 @@ URL pública: https://andresnavarroguitart.github.io/notabot-tablero-operaciones
 8. Esperar 1-2 min y confirmar con `curl` que GitHub Pages ya sirve la versión nueva.
 
 Versionado semántico: feature nueva = MINOR, fix/datos = PATCH.
-Última versión publicada: **v1.2.1** (venía de `tablero-v1.2.1` en el repo anterior).
+Última versión publicada: **v1.3.0**.
 
 ## Servidor local
 ```
