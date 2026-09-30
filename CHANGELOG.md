@@ -8,6 +8,18 @@ Versionado: `vMAJOR.MINOR.PATCH` (tags de git + releases en GitHub).
 > el proyecto vive en su propio repo y los tags pasan a ser `v*`. El historial
 > anterior a `v1.2.1` está en los releases del repo original.
 
+## [v1.5.0] — 2026-09-30
+
+### Agregado
+
+- **Time Summary · vista Administración** — nueva pestaña para RRHH: lista de
+  todos los colaboradores Activos con las horas cargadas en el período
+  (semana o mes, con navegación) y un estado **"✓ Cargó" / "⚠ Sin cargar"**,
+  con un filtro para ver solo a quienes falta. Resumen arriba ("X de Y
+  colaboradores cargaron horas"). No expone una categoría de dato más
+  sensible que la que ya mostraba "Resumen mensual" (totales por colaborador).
+- `?v=` de JS/CSS: **1.4.0 → 1.5.0**.
+
 ## [v1.4.0] — 2026-09-29
 
 ### Agregado
@@ -183,6 +195,7 @@ Primera versión estable, publicada en GitHub Pages y compartible con clientes:
   hasta cargar el secret `NOTION_TOKEN` (ver `proyectos/SYNC.md`).
 - `assets/theme.css` compartido por todas las vistas.
 
+[v1.5.0]: https://github.com/AndresNavarroGuitart/notabot-tablero-operaciones/releases/tag/v1.5.0
 [v1.4.0]: https://github.com/AndresNavarroGuitart/notabot-tablero-operaciones/releases/tag/v1.4.0
 [v1.3.0]: https://github.com/AndresNavarroGuitart/notabot-tablero-operaciones/releases/tag/v1.3.0
 [v1.2.1]: https://github.com/AndresNavarroGuitart/notabot-tablero-operaciones/releases/tag/v1.2.1
