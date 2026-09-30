@@ -8,6 +8,26 @@ Versionado: `vMAJOR.MINOR.PATCH` (tags de git + releases en GitHub).
 > el proyecto vive en su propio repo y los tags pasan a ser `v*`. El historial
 > anterior a `v1.2.1` está en los releases del repo original.
 
+## [v1.4.0] — 2026-09-29
+
+### Agregado
+
+- **Módulo Time Summary** (`time-summary/`) — carga de horas trabajadas por
+  colaborador para liquidar el pago mensual, inspirado en Clockify. Forma
+  parte del tablero (listado en `data.js`, con nav hacia/desde la portada).
+  - **Rastreador**: cronómetro (Inicio/Detener) + carga manual (fecha,
+    inicio/fin u horas directas). Listado agrupado por semana y por día.
+  - **Planilla**: grilla semanal editable (proyecto × día), con "Añadir nueva
+    fila", "Copiar la semana pasada" y "Guardar como plantilla".
+  - **Resumen mensual**: total de horas por colaborador en el mes, con envío
+    a un Google Form/Sheet privado de RRHH.
+  - Colaborador y proyecto por defecto salen de los empleados **Activos** de
+    Nómina (`cliente`/`proyecto` de su ficha).
+  - **Sin conectar todavía** el envío del resumen mensual (config pendiente,
+    avisa explícitamente en vez de simular un envío) — ver
+    `time-summary/SETUP.md`.
+- `?v=` de JS/CSS: **1.3.0 → 1.4.0**.
+
 ## [v1.3.0] — 2026-09-29
 
 ### Agregado
@@ -163,6 +183,7 @@ Primera versión estable, publicada en GitHub Pages y compartible con clientes:
   hasta cargar el secret `NOTION_TOKEN` (ver `proyectos/SYNC.md`).
 - `assets/theme.css` compartido por todas las vistas.
 
+[v1.4.0]: https://github.com/AndresNavarroGuitart/notabot-tablero-operaciones/releases/tag/v1.4.0
 [v1.3.0]: https://github.com/AndresNavarroGuitart/notabot-tablero-operaciones/releases/tag/v1.3.0
 [v1.2.1]: https://github.com/AndresNavarroGuitart/notabot-tablero-operaciones/releases/tag/v1.2.1
 [tablero-v1.2.0]: https://github.com/AndresNavarroGuitart/quickconsultant-web/releases/tag/tablero-v1.2.0

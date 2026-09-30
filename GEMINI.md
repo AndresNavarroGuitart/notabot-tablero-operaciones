@@ -15,7 +15,11 @@ URL pública: https://andresnavarroguitart.github.io/notabot-tablero-operaciones
 - `nomina/`    → planilla + ficha panel + edición. localStorage: `nba-nomina-empleados`
 - `pipeline/`  → kanban + lista de leads. localStorage: `nba-pipeline-leads`
 - `proyectos/` → espejo de solo lectura de Notion. Datos en `proyectos/proyectos-data.js`
-- `index.html` → portada: 5 procesos + 4 KPIs. Lógica en `app.js`, datos en `data.js`
+- `time-summary/` → carga de horas por colaborador (Rastreador + Planilla + Resumen mensual),
+  para liquidar el pago mensual. Sí forma parte del tablero (listado en `data.js`).
+  localStorage: `nba-timesummary-*`. El envío del resumen mensual va a un Google Form
+  externo (config pendiente — ver `time-summary/SETUP.md`).
+- `index.html` → portada: 6 procesos + 4 KPIs. Lógica en `app.js`, datos en `data.js`
 - `alta-colaborador/` → formulario de onboarding, **INDEPENDIENTE del tablero** (sin nav
   hacia/desde el resto, no listado en `data.js`). No usa localStorage; el envío es a un
   Google Form externo (config pendiente — ver `alta-colaborador/SETUP.md`).
@@ -35,13 +39,18 @@ URL pública: https://andresnavarroguitart.github.io/notabot-tablero-operaciones
   ningún texto que no sea el aviso legal real de Not a Bot Agency (razón social, CUIT/NIF
   y contacto correctos). No completar `CONFIG.formActionUrl`/`entryIds`/`docsFormUrl` con
   datos inventados — solo con los reales, siguiendo `alta-colaborador/SETUP.md`.
+- `time-summary/`: no completar `CONFIG.formActionUrl`/`entryIds` en `time-summary.js` con
+  datos inventados — solo con los reales, siguiendo `time-summary/SETUP.md`. Sin login,
+  cualquiera puede cargarle horas a cualquier colaborador del desplegable — no tratar el
+  resumen mensual como definitivo hasta que haya roles reales (`PLAN-PRODUCCION.md`).
 
 ## Ritual de publicación (SIEMPRE en este orden)
 1. Verificar el cambio en el navegador (server local, ver abajo).
 2. Actualizar `CHANGELOG.md` (estilo Keep a Changelog, en español).
-3. Subir el `?v=X.Y.Z` en TODOS los `<script>`/`<link>` de los 5 index.html
+3. Subir el `?v=X.Y.Z` en TODOS los `<script>`/`<link>` de los 6 index.html
    (`index.html`, `nomina/index.html`, `pipeline/index.html`, `proyectos/index.html`,
-   `alta-colaborador/index.html`). NO versionar `proyectos/proyectos-data.js`.
+   `alta-colaborador/index.html`, `time-summary/index.html`). NO versionar
+   `proyectos/proyectos-data.js`.
 4. `git commit` (mensaje en español).
 5. `git tag -a vX.Y.Z -m "..."`
 6. `git push origin master && git push origin vX.Y.Z`
@@ -49,7 +58,7 @@ URL pública: https://andresnavarroguitart.github.io/notabot-tablero-operaciones
 8. Esperar 1-2 min y confirmar con `curl` que GitHub Pages ya sirve la versión nueva.
 
 Versionado semántico: feature nueva = MINOR, fix/datos = PATCH.
-Última versión publicada: **v1.3.0**.
+Última versión publicada: **v1.4.0**.
 
 ## Servidor local
 ```

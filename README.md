@@ -32,6 +32,7 @@ terracota `#C84E1E`. Soporta tema claro/oscuro.
 | `nomina/` | **Módulo Nómina de empleados** (ver abajo) |
 | `pipeline/` | **Módulo Pipeline de Clientes** (ver abajo) |
 | `proyectos/` | **Módulo Proyectos** — espejo del tablero de Notion (ver abajo) |
+| `time-summary/` | **Módulo Time Summary** — carga de horas para liquidar el pago (ver abajo) |
 | `alta-colaborador/` | **Formulario de alta de colaborador** — independiente del tablero (ver abajo) |
 
 ## Módulo: Nómina de empleados (`nomina/`)
@@ -126,6 +127,47 @@ módulo.
 
 > El workflow de sync **no** está incluido en este repo: mientras el repo sea
 > público, no debe correr (publicaría datos de Notion). Ver `proyectos/SYNC.md`.
+
+## Módulo: Time Summary (`time-summary/`)
+
+Carga de horas trabajadas por colaborador durante el mes, para liquidar el pago.
+Inspirado en Clockify. Tres vistas:
+
+- **Rastreador** — barra superior con descripción, proyecto, etiquetas y un
+  cronómetro (Inicio/Detener); también se puede cargar una entrada manual
+  (fecha + inicio/fin, o directamente la cantidad de horas). El listado agrupa
+  las entradas por semana y por día, con el total de cada una.
+- **Planilla** — grilla semanal (filas = proyecto, columnas = días) con celdas
+  editables. Botones para agregar una fila de proyecto, copiar las horas de la
+  semana pasada, o guardar la lista de proyectos como plantilla para las
+  próximas semanas.
+- **Resumen mensual** — total de horas por colaborador en el mes elegido
+  (suma del Rastreador + la Planilla), con un botón para enviarlo a una
+  planilla de RRHH (no queda guardado en este sitio).
+
+El colaborador se elige de un desplegable poblado con los empleados **Activos**
+de Nómina; el proyecto por defecto sale del `cliente`/`proyecto` de su ficha.
+
+Persistencia en `localStorage` (`nba-timesummary-*`), sin backend. A diferencia
+de `alta-colaborador/`, **sí** forma parte del tablero (está listado en
+`data.js` y tiene el link "‹ Tablero").
+
+**Estado:** el envío del resumen mensual todavía no está conectado a un Google
+Form real — ver [`time-summary/SETUP.md`](time-summary/SETUP.md). Mientras
+tanto, avisa explícitamente que no está conectado en vez de simular un envío.
+
+Como no hay login, cualquiera puede cargarle horas a cualquier colaborador del
+desplegable — no es un problema de datos personales (acá no hay DNI ni datos
+bancarios) pero sí de control de integridad para un proceso que define un pago;
+se resuelve con el login real de `PLAN-PRODUCCION.md`.
+
+| Archivo | Rol |
+|---|---|
+| `time-summary/index.html` | Estructura + plantillas de las 3 vistas |
+| `time-summary/time-summary.css` | Estilos propios |
+| `time-summary/time-summary.js` | Router, cronómetro, planilla, resumen mensual y envío (config pendiente) |
+| `time-summary/time-entries-demo.js` | Dataset de ejemplo (ficticio) |
+| `time-summary/SETUP.md` | Cómo conectar el envío del resumen mensual |
 
 ## Formulario: Alta de colaborador (`alta-colaborador/`)
 
