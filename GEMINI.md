@@ -15,10 +15,11 @@ URL pública: https://andresnavarroguitart.github.io/notabot-tablero-operaciones
 - `nomina/`    → planilla + ficha panel + edición. localStorage: `nba-nomina-empleados`
 - `pipeline/`  → kanban + lista de leads. localStorage: `nba-pipeline-leads`
 - `proyectos/` → espejo de solo lectura de Notion. Datos en `proyectos/proyectos-data.js`
-- `time-summary/` → carga de horas por colaborador (Rastreador + Planilla + Resumen mensual + Administración),
-  para liquidar el pago mensual. Sí forma parte del tablero (listado en `data.js`).
-  localStorage: `nba-timesummary-*`. El envío del resumen mensual va a un Google Form
-  externo (config pendiente — ver `time-summary/SETUP.md`).
+- `time-summary/` → carga de horas por colaborador, para liquidar el pago mensual. Dos
+  solapas: Colaborador (Carga de hs + Carga on line + Resumen con su historial completo) y
+  Administración (quién cargó/no cargó + envío del resumen mensual). Sí forma parte del
+  tablero (listado en `data.js`). localStorage: `nba-timesummary-*`. El envío del resumen
+  mensual va a un Google Form externo (config pendiente — ver `time-summary/SETUP.md`).
 - `index.html` → portada: 6 procesos + 4 KPIs. Lógica en `app.js`, datos en `data.js`
 - `alta-colaborador/` → formulario de onboarding, **INDEPENDIENTE del tablero** (sin nav
   hacia/desde el resto, no listado en `data.js`). No usa localStorage; el envío es a un
@@ -58,7 +59,7 @@ URL pública: https://andresnavarroguitart.github.io/notabot-tablero-operaciones
 8. Esperar 1-2 min y confirmar con `curl` que GitHub Pages ya sirve la versión nueva.
 
 Versionado semántico: feature nueva = MINOR, fix/datos = PATCH.
-Última versión publicada: **v1.5.0**.
+Última versión publicada: **v1.6.0**.
 
 ## Servidor local
 ```
